@@ -4,75 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Listings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #f7f5f5;
+            color: #080808;
         }
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
+            background: #6c91b3;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-        }
-        .job-list {
-            list-style: none;
-            padding: 0;
+            border-radius: 10px;
         }
         .job-item {
-            background: #fff;
-            margin: 10px 0;
+            background: #d3cfcf;
             padding: 15px;
+            margin: 10px 0;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
         .apply-btn {
-            background: #28a745;
-            color: white;
+            background: #fff;
+            color: #000;
             padding: 10px;
-            border: none;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
             border-radius: 5px;
-            cursor: pointer;
         }
         .apply-btn:hover {
-            background: #218838;
+            background: #ccc;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Job Openings</h2>
-        <ul class="job-list" id="jobList"></ul>
-    </div>
-    
-    <script>
-        const jobs = [
-            { title: "Software Engineer", company: "TechCorp", location: "New York, USA" },
-            { title: "Marketing Manager", company: "Marketify", location: "London, UK" },
-            { title: "Data Analyst", company: "DataWiz", location: "San Francisco, USA" },
-            { title: "UI/UX Designer", company: "Creative Minds", location: "Berlin, Germany" }
-        ];
 
+<div class="container mt-4">
+    <h1 class="text-center">Job Listings</h1>
+    <div class="row" id="jobList"></div>
+</div>
+
+<script>
+    const jobs = [
+        { title: "Software Developer", location: "Bangalore", Experience: "3-5 Yrs", CTC: "8-10 LPA" },
+        { title: "Data Analyst", location: "Mumbai", Experience: "6-7 Yrs", CTC: "10-15 LPA" },
+        { title: "Marketing Manager", location: "Delhi", Experience: "6-7 Yrs", CTC: "10-15 LPA" },
+        { title: "Product Manager", location: "Pune", Experience: "8-10 Yrs", CTC: "15-20 LPA" }
+    ];
+
+    function displayJobs() {
         const jobList = document.getElementById("jobList");
-        
+        jobList.innerHTML = "";
         jobs.forEach(job => {
-            const jobItem = document.createElement("li");
-            jobItem.classList.add("job-item");
+            const jobItem = document.createElement("div");
+            jobItem.classList.add("col-md-6", "mb-4");
             jobItem.innerHTML = `
-                <h3>${job.title}</h3>
-                <p><strong>Company:</strong> ${job.company}</p>
-                <p><strong>Location:</strong> ${job.location}</p>
-                <button class="apply-btn">Apply Now</button>
+                <div class="job-item p-3 rounded">
+                    <h4>${job.title}</h4>
+                    <p>Location: ${job.location}</p>
+                    <p>Exp: ${job.Experience}</p>
+                    <p>CTC: ${job.CTC}</p>
+                    <a href="javascript:void(0);" class="apply-btn btn" onclick="applyJob('${job.title}')">Apply Now</a>
+                </div>
             `;
             jobList.appendChild(jobItem);
         });
-    </script>
+    }
+
+    function applyJob(jobTitle) {
+        const email = "hr@unetra.in";
+        const subject = `Application for ${jobTitle}`;
+        const body = `Dear HR,%0D%0A%0D%0AI am interested in applying for the position of ${jobTitle}. Please find my details below:%0D%0A%0D%0AExperience: [Your Experience Here]%0D%0ACTC: [Your Current CTC Here]%0D%0AECTC: [Your Expected CTC Here]%0D%0ANotice Period: [Your Notice Period Here]%0D%0ACurrent Location: [Your Current Location Here]%0D%0A%0D%0ARegards,%0D%0A[Your Name]`;
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    }
+
+    displayJobs();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
